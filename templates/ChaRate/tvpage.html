@@ -1,0 +1,30 @@
+{% extends 'ChaRate/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    TVname
+{% endblock %} 
+
+{% block body_block %}
+
+<div class="container">
+    <div class="bblock">
+        <h2>{{ tv.title }}</h2>
+        <p>Characters:</p>
+    </div>
+
+    <div class="filteredgrid">
+<!--        % for char in tv.chars %-->
+        <a href="">Character</a>
+        <a href="">Character</a>
+        <a href="">Character</a>
+        <a href="">Character</a>
+        <a href="">Character</a>
+        <a href="">Character</a>
+        <a href="">Character</a>
+        <a href="">Character</a>
+<!--        % endfor %-->
+    </div>
+</div>
+
+{% endblock %}

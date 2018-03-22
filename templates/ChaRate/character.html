@@ -1,0 +1,71 @@
+{% extends 'ChaRate/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+<!--    % get character name %-->
+    Darth Vader
+{% endblock %} 
+
+{% block body_block %}
+
+<div class="container">
+    <div class="bblock">
+        <h2>Darth Vader</h2>
+        <p>Likes: ---</p>
+    </div>
+    <div class="bblock">
+        <img class="inline" src="/static/images/darth_vader.jpg" alt="Picture of  charactername "/>
+    </div>
+    <div class="bblock">
+        <p><button class="button" onclick=""><span>View Comments</span></button></p>
+    </div>
+</div>
+<!--% if user.isauthenticated % -->
+<div class="container">
+<div class="dblock">
+<!--        % if user has liked %-->
+<!--        <p><button class="button" onclick=""><span>Unlike</span></button></p>-->
+<!--        % else %-->
+        <p><button class="button" onclick=""><span>Like</span></button></p>
+<!--        % endif %-->
+    </div>
+    <div class="dblock">
+        <p><a class="button" href="{% url 'add_comment' %}"><span>Add Comment</span></a></p>
+    </div>
+</div>
+<!--% endif %-->
+<div class="container">
+    <div class="dblock">
+        <p>
+            <strong>Movie Appearances:</strong>
+        </p>
+        <p> Star Wars Saga </p>
+<!--        % for movie in Movies %-->
+<!--             <p>% movie %</p> <GRID>-->
+<!--        % endfor %-->
+    </div>
+    <div class="dblock">
+        <p>
+            <strong>TV Show Appearances:</strong>
+        </p>
+        <p>None</p>
+    </div>
+</div>
+<!--% if user.isauthenticated %-->
+<div class="container">
+        <p>Do they appear in something else?</p>
+    <div class="dblock">
+        <p>
+            <a href="{% url 'link_tv' %}">
+                <span>Link Character to TV Show</span>
+            </a>
+        </p>
+        <p>
+            <a href="{% url 'link_movie' %}">
+                <span>Link Character to Movie</span>
+            </a>
+        </p>
+    </div>
+</div>
+<!--% endif % -->
+{% endblock %}
