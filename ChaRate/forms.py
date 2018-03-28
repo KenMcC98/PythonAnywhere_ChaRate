@@ -22,6 +22,8 @@ class linkMovieForm(forms.Form):
     except:
         show = None
     class Meta:
+        movies = Movie.objects.all()
+        movie = forms.ChoiceField(choices=[(x.slug, x) for x in movies], required=True)
         fields = ('movie',)
 
 class linkTvForm(forms.Form):
