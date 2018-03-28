@@ -2,38 +2,40 @@
 {% load staticfiles %}
 
 {% block title_block %}
-	 TV Shows
+	Browse TV Shows
 {% endblock %} 
 
 {% block body_block %}
-
 <div class="container">
     <div class="bblock" id="dark">
+            
         <h1>TV Shows</h1>
-        <div class="grid">
+        <div class="grid" id="btnContainer">
             <button class="button active" onclick="filterSelection('all')"> Show all</button>
             <p>Genre:</p>
-            <button class="button" onclick="filterSelection('Action')"> Action</button>
-            <button class="button" onclick="filterSelection('Sci-Fi')"> Sci-Fi</button>
-            <button class="button" onclick="filterSelection('Romance')"> Romance</button>
-            <button class="button" onclick="filterSelection('Comedy')"> Comedy</button>
-            <button class="button" onclick="filterSelection('...')"> ...</button>
+            <button class="button" onclick="filterSelection('action')"> Action</button>
+            <button class="button" onclick="filterSelection('sci')"> Sci-Fi</button>
+            <button class="button" onclick="filterSelection('romance')"> Romance</button>
+            <button class="button" onclick="filterSelection('comedy')"> Comedy</button>
+            <button class="button" onclick="filterSelection('horror')"> Horror</button>
+            <button class="button" onclick="filterSelection('other')">Other</button>
         </div>
     </div>
 </div>
 
 <div class="container">
     <div class="filteredgrid">
-        <a class="" href="">TV Show</a>
-        <a class="" href="">TV Show</a>
-        <a class="" href="">TV Show</a>
-        <a class="" href="">TV Show</a>
-        <a class="" href="">TV Show</a>
-        <a class="" href="">TV Show</a>
-        <a class="" href="">TV Show</a>
-        <a class="" href="">TV Show</a>
-        <a class="" href="">TV Show</a>
+        {% if tvshows %}
+            {% for tv in tvshows %}
+                <a class="filteredA {{ tv.genre }}" href="{% url 'tvpage' tv.slug %}">{{ tv.name }}</a>
+            {% endfor %}
+        {% else %}
+            <p>There seem to be no TV Shows! :(</p>
+        {% endif %}
     </div>
 </div>
+
+<!-- Script for filter functionality. -->
+<script language='javascript' src="{% static 'js/filter.js' %}"></script>
 
 {% endblock %}

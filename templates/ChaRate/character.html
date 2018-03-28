@@ -2,70 +2,107 @@
 {% load staticfiles %}
 
 {% block title_block %}
-<!--    % get character name %-->
-    Darth Vader
+    {% if character %}
+        {{ character.name }}
+    {% else %}
+        Does not Exist!
+    {% endif %}
 {% endblock %} 
 
 {% block body_block %}
 
-<div class="container">
-    <div class="bblock">
-        <h2>Darth Vader</h2>
-        <p>Likes: ---</p>
+{% if character %}
+    <div class="container">
+        <div class="bblock">
+            <h2>{{ character.name }}</h2>
+            <h3>Likes:<div id="like_count"><strong>{{ character.likes }}</strong></div></h3>
+        </div>
+        <div class="bblock">
+            <img class="inline" src="{{MEDIA_URL}}{{character.picture}}" 
+            alt="Picture of {{ character.name }}"/>
+        </div>
+        <div class="bblock">
+            <p><button class="button" onclick="openComments()"><span>View Comments</span></button></p>
+        </div>
     </div>
-    <div class="bblock">
-        <img class="inline" src="/static/images/darth_vader.jpg" alt="Picture of  charactername "/>
-    </div>
-    <div class="bblock">
-        <p><button class="button" onclick=""><span>View Comments</span></button></p>
-    </div>
-</div>
-<!--% if user.isauthenticated % -->
-<div class="container">
-<div class="dblock">
-<!--        % if user has liked %-->
-<!--        <p><button class="button" onclick=""><span>Unlike</span></button></p>-->
-<!--        % else %-->
-        <p><button class="button" onclick=""><span>Like</span></button></p>
-<!--        % endif %-->
-    </div>
+ 
+
+    {% if user.is_authenticated %} <br/>
+    <div class="container">
     <div class="dblock">
-        <p><a class="button" href="{% url 'add_comment' %}"><span>Add Comment</span></a></p>
+            {% if liked %}
+                <button id="likes" data-charid="{{character.id}}" 
+                    class="button" type="button">Like</button> 
+            {% else %}
+                <p>You like {{ character.name }}!</p>
+            {% endif %}
+        </div>
+        <div class="dblock">
+            <p><a class="button" href="{% url 'add_comment' char_name_slug=character.slug %}">Add Comment</a></p>
+        </div>
     </div>
-</div>
-<!--% endif %-->
-<div class="container">
-    <div class="dblock">
-        <p>
-            <strong>Movie Appearances:</strong>
-        </p>
-        <p> Star Wars Saga </p>
-<!--        % for movie in Movies %-->
-<!--             <p>% movie %</p> <GRID>-->
-<!--        % endfor %-->
+    {% endif %}
+    <div class="container">
+        <div class="dblock">
+            <p>
+                <strong>Movie Appearances:</strong>
+            </p>
+            {% for movie in Movies %}
+            <a href="{% url 'movpage' mov_name_slug=movie.slug %}">{{ movie.name }}</a>
+            {% endfor %}
+        </div>
+        <div class="dblock">
+            <p>
+                <strong>TV Show Appearances:</strong>
+            </p>
+            {% for tv in tvshows %}
+                <a href="{% url 'tvpage' tv_name_slug=tv.slug %}">{{ tv.name }}</a>
+            {% endfor %}
+        </div>
     </div>
-    <div class="dblock">
-        <p>
-            <strong>TV Show Appearances:</strong>
-        </p>
-        <p>None</p>
+    {% if user.is_authenticated %}
+    <div class="container">
+            <p>Do they appear in something else?</p>
+        <div class="dblock">
+            <p>
+                <a href="{% url 'link_tv' char_name_slug=character.slug %}">
+                    <span>Link Character to TV Show</span>
+                </a>
+            </p>
+            <p>
+                <a href="% url 'link_movie' char_name_slug=character.slug %">
+                    <span>Link Character to Movie</span>
+                </a>
+            </p>
+        </div>
     </div>
-</div>
-<!--% if user.isauthenticated %-->
-<div class="container">
-        <p>Do they appear in something else?</p>
-    <div class="dblock">
-        <p>
-            <a href="{% url 'link_tv' %}">
-                <span>Link Character to TV Show</span>
-            </a>
-        </p>
-        <p>
-            <a href="{% url 'link_movie' %}">
-                <span>Link Character to Movie</span>
-            </a>
-        </p>
+    {% endif %}
+
+
+    <!-- Overlay: -->
+    <div class="overlay" id="comments">
+
+        <button class="button" onclick="closeComments()">x</button>
+        <div class="content-comments">
+        {% for comment in comments %}
+            <!-- IF WONT' WORK % if comment.writer == user % -->
+            <!-- <div class="commentbox" id="author-is-user">
+                <small> comment.writer  @  comment.written_at </small>
+                <p> comment.content </p>
+            </div> -->
+            <!-- % else % -->
+            <div class="commentbox">
+                <small>{{ comment.writer }} @ {{ comment.written_at }}</small>
+                <p>{{ comment.content }}</p>
+            </div>
+            <!-- % endif % -->
+        {% endfor %}
+        </div>
     </div>
-</div>
-<!--% endif % -->
+{% else %}
+    <div class="container">
+        <p>This character does not exist.</p>
+        <a href="" id="darkText">Create a Character</a>
+    </div>
+{% endif %}
 {% endblock %}

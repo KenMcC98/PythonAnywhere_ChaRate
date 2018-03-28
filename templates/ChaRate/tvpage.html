@@ -2,29 +2,37 @@
 {% load staticfiles %}
 
 {% block title_block %}
-    TVname
+    {% if tvshow %}
+        {{ tvshow.name }}
+    {% else %}
+        Doesn't exist
+    {% endif %}
 {% endblock %} 
 
 {% block body_block %}
 
 <div class="container">
+    {% if tvshow %}
+
     <div class="bblock">
-        <h2>{{ tv.title }}</h2>
+        <h2>{{ tvshow.name }}</h2>
         <p>Characters:</p>
     </div>
 
     <div class="filteredgrid">
-<!--        % for char in tv.chars %-->
-        <a href="">Character</a>
-        <a href="">Character</a>
-        <a href="">Character</a>
-        <a href="">Character</a>
-        <a href="">Character</a>
-        <a href="">Character</a>
-        <a href="">Character</a>
-        <a href="">Character</a>
-<!--        % endfor %-->
+        {% if characters %}
+        {% for char in characters %}
+            <a class="visible" href="{% url 'character' char.slug %}">{{char.name}}</a>
+        {% endfor %}
+        {% else %}
+            There are no characters for {{ tvshow.name }}!
+        {% endif %}
     </div>
+    
+    {% else %}
+    <p>This TV Show does not exist.</p>
+    <a href="" id="darkText">Create TV Show</a>
+    {% endif %}
 </div>
 
 {% endblock %}

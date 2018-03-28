@@ -11,22 +11,21 @@
         <h1>Add a Character</h1>
         <div class="bblock" id="dark">
         
-        <p></p>
-            <input type="text" name="search" placeholder="Input Name..." value=""/>
-        <p></p>
-<!--            <form id="character_form" method="post" action="% url 'add_character' %">-->
-<!--                % csrf_token %-->
-<!--                % for hidden in form.hidden_fields %-->
-<!--                     hidden-->
-<!--                % endfor %-->
-<!--                % for field in form.visible_fields %-->
-<!--                     field.errors-->
-<!--                     field.help_text-->
-<!--                     field-->
-<!--                % endfor %-->
+ 
+            <form id="character_form" method="post" action="{% url 'add_character' %}"
+            enctype="multipart/form-data">
+                {% csrf_token %}
+                {% for hidden in form.hidden_fields %}
+                    {{ hidden }}
+                {% endfor %}
+                {% for field in form.visible_fields %}
+                    {{ field.errors }}
+                    {{ field.help_text }}
+                    {{ field }}
+                {% endfor %}
             </div>
                 <button class="button" type="submit" 
                 name="submit"><span>Create Character</span></button>
-<!--            </form>-->
+            </form>
         </div>
 {% endblock %}

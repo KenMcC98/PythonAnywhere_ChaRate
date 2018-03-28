@@ -1,0 +1,39 @@
+{% extends 'ChaRate/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+  <h2>Register</h2>
+{% endblock %}
+
+{% block body_block %}
+    <div class="container" id="registration">
+     <h1>Register for ChaRate</h1>
+    {% if registered %}
+        <a href="{% url 'index' %}">Return to the homepage.</a><br />
+     {% else %}
+    <div class="bblock" id="dark">
+        <div method="post">
+            <form id="user_form" method="post" action="{% url 'registration_register' %}"
+                    enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for field in form %}
+                <p>
+                    {{ field.label_tag }}<br>
+                    {{ field }}
+                    {% if field.help_text %}
+                        <small style="display: none">{{ field.help_text }}</small>
+                    {% endif %}
+                    {% for error in field.errors %}
+                        <p style="color: red ">{{ error }}</p>
+                    {% endfor %}
+                </p>
+            {% endfor %}
+            {{ profile_form.as_p }}
+
+            <button class="button" type="submit" name="submit"><span>Register</span></button>
+        </form>
+    </div>
+    </div>
+    {% endif %}
+    </div>
+{% endblock %}

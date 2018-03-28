@@ -7,31 +7,31 @@
         <h2>
             Account Page
         </h2>
-        <p>Hey, --username-- !</p>
+        <p>Hey, {{ user.username }}!</p>
 </div>
 
 <div class="container">
         <div class="dblock">
             <h3>Number of:</h3>
-            <p>comments you've left: --comments--</p>
-            <p>characters you've liked: --characters--</p>
+            <p>comments you've left: {{comments}}</p>
+            <p>characters you've liked: {{characters}}</p>
         </div>
     
         <div class="dblock">
     
                 <h3>Looking for characters?</h3>
-                <a id="button" href="{% url 'filter_tv' %}">Explore TV Shows</a>
-                <a id="button" href="{% url 'filter_mov' %}">Explore Movies</a>
+                <a id="button" href="">Explore TV Shows</a>
+                <a id="button" href="">Explore Movies</a>
         </div>
 </div>
 
 <div class="container">
-    <div class="bblock">
+    <div class="bblock" id="dark">
         <button class="button" onclick="">Change your password</button>
     </div>
-<!--    <div class="bblock">-->
-<!--        <button class="button" onclick="">Characters you've liked</button>-->
-<!--    </div>-->
+    <div class="bblock" id="dark">
+        <button class="button" onclick="">Characters you've liked</button>
+    </div>
 </div>
 
 {% endblock %}

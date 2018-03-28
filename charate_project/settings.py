@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'ChaRate',
+    'registration',
 ]
 
 MIDDLEWARE = [
@@ -103,6 +104,15 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Password Hashers
+PASSWORD_HASHERS = (
+    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+    'django.contrib.auth.hashers.BCryptPasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+)
+
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
@@ -129,3 +139,22 @@ STATIC_URL = '/static/'
 
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
+
+#Login URL
+#This ensures that the decorator will
+# redirect any user not logged in to the URL
+REGISTRATION_OPEN = True
+ACCOUNT_ACTIVATION_DAYS = 99
+REGISTRATION_AUTO_LOGIN = True
+LOGIN_REDIRECT_URL = '/ChaRate/'
+LOGIN_URL = '/accounts/login/'
+
+# <-------------------------------EMAIL AUTH----------------------------------------->
+
+#EMAIL_HOST = 'localhost'# 'smtp.sendgrid.net'
+#EMAIL_PORT =  '1025'#587
+#EMAIL_HOST_USER = 'ChaRate'
+#EMAIL_HOST_PASSWORD = 'ChaRate1234'
+#EMAIL_USE_TLS = False #True
+#DEFAULT_FROM_EMAIL = 'ChaRate Team <noreply@ChaRate.com>'
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

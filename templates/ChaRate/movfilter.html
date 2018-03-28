@@ -2,7 +2,7 @@
 {% load staticfiles %}
 
 {% block title_block %}
-	View Movies
+	Browse Movies
 {% endblock %} 
 
 {% block body_block %}
@@ -10,33 +10,32 @@
 <div class="container">
     <div class="bblock" id="dark">
         <h1>Movies</h1>
-        <div class="grid">
+        <div class="grid" id="btnContainer">
             <button class="button active" onclick="filterSelection('all')"> Show all</button>
             <p>Genre:</p>
-            <button class="button" onclick="filterSelection('Action')"> Action</button>
-            <button class="button" onclick="filterSelection('Sci-Fi')"> Sci-Fi</button>
-            <button class="button" onclick="filterSelection('Romance')"> Romance</button>
-            <button class="button" onclick="filterSelection('Comedy')"> Comedy</button>
-            <button class="button" onclick="filterSelection('...')"> ...</button>
+            <button class="button" onclick="filterSelection('action')"> Action</button>
+            <button class="button" onclick="filterSelection('sci')"> Sci-Fi</button>
+            <button class="button" onclick="filterSelection('romance')"> Romance</button>
+            <button class="button" onclick="filterSelection('comedy')"> Comedy</button>
+            <button class="button" onclick="filterSelection('horror')"> Horror</button>
+            <button class="button" onclick="filterSelection('other')">Other</button>
         </div>
     </div>
 </div>
 
 <div class="container">
     <div class="filteredgrid">
-        <a class="" href="">Movie</button>
-        <a class="" href="">Movie</button>
-        <a class="" href="">Movie</button>
-        <a class="" href="">Movie</button>
-        <a class="" href="">Movie</button>
-        <a class="" href="">Movie</button>
-        <a class="" href="">Movie</button>
-        <a class="" href="">Movie</button>
-        <a class="" href="">Movie</button>
-        <a class="" href="">Movie</button>
-        <a class="" href="">Movie</button>
-        <a class="" href="">Movie</button>
+        {% if movies %}
+            {% for mov in movies %}
+                <a class="filteredA {{ mov.genre }}" href="{% url 'movpage' mov.slug %}">{{mov.name}}</a>
+            {% endfor %}
+        {% else %}
+            <p>There seem to be no Movies! :(</p>
+        {% endif %}
     </div>
 </div>
+
+<!-- Script for filter functionality. -->
+<script language='javascript' src="{% static 'js/filter.js' %}"></script>
 
 {% endblock %}
